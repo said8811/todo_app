@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:todo_app/utils/toast.dart';
 
 class LocalNotificationService {
   static final LocalNotificationService localNotificationService =
@@ -109,24 +110,34 @@ class LocalNotificationService {
       required String task}) async {
     final birthday = DateTime.parse(delayedTime);
     final date2 = DateTime.now();
-    final difference = date2.difference(birthday).inSeconds;
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      "Notification",
-      task,
-      tz.TZDateTime.now(tz.local).add(Duration(seconds: difference)),
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          androidNotificationChannel.id,
-          androidNotificationChannel.name,
-          channelDescription: 'To remind you about upcoming birthdays',
+    final seconds = birthday.difference(date2).inSeconds;
+
+    print(seconds);
+    // if time is in the future notification will be set
+    if (seconds > 0) {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        "Notification",
+        task,
+        tz.TZDateTime.now(tz.local).add(Duration(
+          seconds: seconds,
+        )),
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            androidNotificationChannel.id,
+            androidNotificationChannel.name,
+            channelDescription: 'To remind you about upcoming birthdays',
+          ),
         ),
-      ),
-      payload: "SCHEADULED NOTIFICATION PAYLOAD DATA ID:$id",
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+        payload: "SCHEADULED NOTIFICATION PAYLOAD DATA ID:$id",
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+      //else u will get message in toast
+    } else {
+      Mytoast.getMyToast(message: "time has gone");
+    }
   }
 
   void showPeriodically({required int id}) async {

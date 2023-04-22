@@ -63,15 +63,20 @@ class _TabBoxState extends State<TabBox> {
                     topLeft: Radius.elliptical(150.r, 50.r),
                     topRight: Radius.elliptical(150.r, 50.r))),
             context: context,
+            isScrollControlled: true,
             builder: (context) {
-              return StatefulBuilder(
-                builder: (context, setState) => MyBottomSheet(
-                  selectedCategory: selectedCategory,
-                  onTap: (int index) {
-                    setState(() {
-                      selectedCategory = index;
-                    });
-                  },
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: StatefulBuilder(
+                  builder: (context, setState) => MyBottomSheet(
+                    selectedCategory: selectedCategory,
+                    onTap: (int index) {
+                      setState(() {
+                        selectedCategory = index;
+                      });
+                    },
+                  ),
                 ),
               );
             },

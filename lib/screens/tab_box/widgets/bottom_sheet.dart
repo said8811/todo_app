@@ -69,7 +69,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
         ),
         Container(
           margin: const EdgeInsets.only(top: 45).r,
-          height: 400.h,
+          height: 370.h,
           width: double.infinity,
           padding: EdgeInsets.only(left: 20.r, right: 20.r, bottom: 20.r),
           child: Column(
@@ -199,7 +199,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                     final category =
                         TaskCategory.categories[widget.selectedCategory];
                     TaskModel task = TaskModel(
-                      task: taskName,
+                      task: taskName.isNotEmpty ? taskName : widget.initialText,
                       category: category.name,
                       color: category.colorInt,
                       isDone: false,
