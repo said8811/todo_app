@@ -23,7 +23,8 @@ class TasksEmptyState extends TaskState {
 
 class TasksLoadedState extends TaskState {
   final List<TaskModel> tasks;
-  TasksLoadedState({required this.tasks});
+  final TaskModel? notifyTask;
+  TasksLoadedState({required this.tasks, this.notifyTask});
   @override
   // TODO: implement props
   List<Object?> get props => [tasks];

@@ -63,4 +63,12 @@ class TaskCategory {
     "Party": 4,
     "Study": 5,
   };
+  static Map counts = {
+    "Personal": 0,
+    "Work": 0,
+    "Meeting": 0,
+    "Shopping": 0,
+    "Party": 0,
+    "Study": 0,
+  };
 }

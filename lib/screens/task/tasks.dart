@@ -66,14 +66,16 @@ class _TasksPageState extends State<TasksPage> {
               itemBuilder: (context, index) {
                 TaskCategory category = TaskCategory.categories[index];
                 return Container(
-                  decoration:
-                      const BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 0.5,
-                        blurRadius: 8,
-                        offset: Offset(4, 8))
-                  ]),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 0.5,
+                            blurRadius: 8,
+                            offset: Offset(4, 8))
+                      ]),
                   child: Column(
                     children: [
                       20.h.ph,
@@ -93,7 +95,7 @@ class _TasksPageState extends State<TasksPage> {
                       ),
                       30.h.ph,
                       Text(
-                        "44 tasks",
+                        "${TaskCategory.counts[category.name]} tasks",
                         style: fontRubikW400(appcolor: MyColors.C_A1A1A1)
                             .copyWith(fontSize: 10.sp),
                       )

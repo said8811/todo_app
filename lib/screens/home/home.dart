@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
             if (state is TasksLoadedState) {
               return LoadedTaskWidget(
                 tasks: state.tasks,
+                notifytask: state.notifyTask,
               );
             }
             return const SizedBox();

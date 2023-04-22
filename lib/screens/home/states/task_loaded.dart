@@ -12,45 +12,84 @@ import '../widgets/task_widget.dart';
 
 class LoadedTaskWidget extends StatelessWidget {
   List<TaskModel> tasks;
+  TaskModel? notifytask;
   LoadedTaskWidget({
     super.key,
     required this.tasks,
+    required this.notifytask,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(MyImages.appbar), fit: BoxFit.cover),
-          ),
-          height: 106.h,
-          width: double.infinity,
-          child: Stack(children: [
-            Positioned(
-              top: 32.h,
-              left: 18.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hello Brenda!",
-                    style: fontRubikW400(appcolor: MyColors.white)
-                        .copyWith(fontSize: 18.sp),
+        notifytask != null
+            ? Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(MyImages.appbarNotify),
+                      fit: BoxFit.cover),
+                ),
+                height: 238.h,
+                width: double.infinity,
+                child: Stack(children: [
+                  Positioned(
+                    top: 32.h,
+                    left: 18.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hello Brenda!",
+                          style: fontRubikW400(appcolor: MyColors.white)
+                              .copyWith(fontSize: 18.sp),
+                        ),
+                        8.h.ph,
+                        Text(
+                          "Today you have ${tasks.length} tasks",
+                          style: fontRubikW400(appcolor: MyColors.white)
+                              .copyWith(fontSize: 18.sp),
+                        ),
+                        Container(
+                          height: 106,
+                          decoration: BoxDecoration(
+                              color: MyColors.white.withOpacity(0.31)),
+                        )
+                      ],
+                    ),
                   ),
-                  8.h.ph,
-                  Text(
-                    "Today you have ${tasks.length} tasks",
-                    style: fontRubikW400(appcolor: MyColors.white)
-                        .copyWith(fontSize: 18.sp),
-                  )
-                ],
+                ]),
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(MyImages.appbar), fit: BoxFit.cover),
+                ),
+                height: 106.h,
+                width: double.infinity,
+                child: Stack(children: [
+                  Positioned(
+                    top: 32.h,
+                    left: 18.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hello Brenda!",
+                          style: fontRubikW400(appcolor: MyColors.white)
+                              .copyWith(fontSize: 18.sp),
+                        ),
+                        8.h.ph,
+                        Text(
+                          "Today you have ${tasks.length} tasks",
+                          style: fontRubikW400(appcolor: MyColors.white)
+                              .copyWith(fontSize: 18.sp),
+                        )
+                      ],
+                    ),
+                  ),
+                ]),
               ),
-            )
-          ]),
-        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 18.r),
           child: ListView.separated(
