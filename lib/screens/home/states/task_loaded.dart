@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/bloc/task_bloc/task_bloc.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
@@ -150,23 +152,36 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
               ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 18.r),
-          child: ListView.separated(
+          child: GroupedListView(
+            order: GroupedListOrder.DESC,
             physics: const BouncingScrollPhysics(),
-            separatorBuilder: (context, index) => 14.h.ph,
             shrinkWrap: true,
-            itemCount: widget.tasks.length,
-            itemBuilder: (context, index) {
-              final task = widget.tasks[index];
+            elements: widget.tasks,
+            groupBy: (element) => DateTime(
+              DateTime.parse(element.date).year,
+              DateTime.parse(element.date).month,
+              DateTime.parse(element.date).day,
+            ),
+            groupHeaderBuilder: (element) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  DateFormat.yMMMd().format(DateTime.parse(element.date)),
+                  style: fontRubikW400(appcolor: MyColors.C_8B87B3),
+                ),
+              );
+            },
+            itemBuilder: (context, task) {
               return TaskWidget(
                 onTap: () {
                   !task.isNotify
                       ? LocalNotificationService.localNotificationService
                           .scheduleNotification(
-                              id: index,
+                              id: task.key as int,
                               task: task.task,
                               delayedTime: task.date)
                       : LocalNotificationService.localNotificationService
-                          .cancelNotificationById(index);
+                          .cancelNotificationById(task.key as int);
                   context.read<TaskBloc>().add(UpDateTaskEvent(
                       task: task.copyWith(isNotify: !task.isNotify)));
                 },

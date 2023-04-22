@@ -60,7 +60,9 @@ class TaskWidget extends StatelessWidget {
             child: Container(
               height: 35.h,
               width: 35.w,
-              margin: EdgeInsets.only(left: 10.r),
+              margin: EdgeInsets.only(
+                left: 10.r,
+              ),
               decoration: BoxDecoration(
                   color: MyColors.C_5F87E7.withOpacity(0.36),
                   borderRadius: BorderRadius.circular(20.r)),
@@ -90,6 +92,7 @@ class TaskWidget extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.r),
+        margin: EdgeInsets.only(bottom: 14.r),
         height: 55.h,
         decoration: BoxDecoration(
             color: MyColors.white,
