@@ -155,6 +155,7 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
           child: GroupedListView(
             order: GroupedListOrder.DESC,
             physics: const BouncingScrollPhysics(),
+            reverse: true,
             shrinkWrap: true,
             elements: widget.tasks,
             groupBy: (element) => DateTime(
