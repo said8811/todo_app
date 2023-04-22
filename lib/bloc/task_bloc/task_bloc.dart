@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/service/local_database.dart';
 
-import '../data/repository/task_repository.dart';
+import '../../data/repository/task_repository.dart';
 
 part 'task_event.dart';
 part 'task_state.dart';
@@ -17,6 +17,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       emit(TasksLoadingState());
       final tasks = await repository.getTasks();
       if (tasks.isNotEmpty) {
+        final personal = tasks.where((e) => e.category == "Personal");
+        print(personal);
         emit(TasksLoadedState(tasks: tasks));
       } else {
         emit(TasksEmptyState());

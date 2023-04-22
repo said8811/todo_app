@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_app/bloc/task_bloc/task_bloc.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
 import 'package:todo_app/utils/my_text_style.dart';
-import '../../../bloc/task_bloc.dart';
 import '../../../service/local_notification.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/images.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app/bloc/task_bloc.dart';
+import 'package:todo_app/bloc/task_bloc/task_bloc.dart';
 import 'package:todo_app/service/local_database.dart';
 import '../data/repository/task_repository.dart';
 import '../screens/app_router.dart';

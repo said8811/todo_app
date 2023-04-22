@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -8,9 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
 
-import '../../../bloc/task_bloc.dart';
+import '../../../bloc/task_bloc/task_bloc.dart';
 import '../../../data/models/tasks_category_model.dart';
-import '../../../service/local_notification.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/icons.dart';
 import '../../../utils/my_text_style.dart';

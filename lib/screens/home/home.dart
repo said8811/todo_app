@@ -3,15 +3,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:todo_app/bloc/task_bloc.dart';
-import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/screens/home/states/task_loaded.dart';
 import 'package:todo_app/screens/home/states/tasks_empty.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
 import 'package:todo_app/utils/colors.dart';
 import 'package:todo_app/utils/icons.dart';
 import 'package:todo_app/utils/images.dart';
+
+import '../../bloc/task_bloc/task_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
