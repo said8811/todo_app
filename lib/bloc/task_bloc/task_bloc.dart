@@ -41,7 +41,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<UpDateTaskEvent>((event, emit) async {
       await repository.updateTask(event.task);
       final tasks = await repository.getTasks();
-      emit(TasksLoadedState(tasks: tasks, notifyTask: notifyTask));
+      emit(TasksLoadedState(
+          tasks: tasks,
+          notifyTask: event.task.isNotify ? event.task : notifyTask));
     });
   }
 }

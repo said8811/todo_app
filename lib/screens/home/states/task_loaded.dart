@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/bloc/task_bloc/task_bloc.dart';
 import 'package:todo_app/data/models/task_model.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
@@ -10,7 +11,7 @@ import '../../../utils/colors.dart';
 import '../../../utils/images.dart';
 import '../widgets/task_widget.dart';
 
-class LoadedTaskWidget extends StatelessWidget {
+class LoadedTaskWidget extends StatefulWidget {
   List<TaskModel> tasks;
   TaskModel? notifytask;
   LoadedTaskWidget({
@@ -20,17 +21,24 @@ class LoadedTaskWidget extends StatelessWidget {
   });
 
   @override
+  State<LoadedTaskWidget> createState() => _LoadedTaskWidgetState();
+}
+
+class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
+  double height = 238;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        notifytask != null
+        widget.notifytask != null
             ? Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(MyImages.appbarNotify),
                       fit: BoxFit.cover),
                 ),
-                height: 238.h,
+                height: height.h,
                 width: double.infinity,
                 child: Stack(children: [
                   Positioned(
@@ -46,14 +54,64 @@ class LoadedTaskWidget extends StatelessWidget {
                         ),
                         8.h.ph,
                         Text(
-                          "Today you have ${tasks.length} tasks",
+                          "Today you have ${widget.tasks.length} tasks",
                           style: fontRubikW400(appcolor: MyColors.white)
                               .copyWith(fontSize: 18.sp),
                         ),
                         Container(
-                          height: 106,
+                          height: 106.h,
+                          width: 340.w,
+                          padding: EdgeInsets.all(12.r),
                           decoration: BoxDecoration(
                               color: MyColors.white.withOpacity(0.31)),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Today Reminder",
+                                    style:
+                                        fontRubikW500(appcolor: MyColors.white)
+                                            .copyWith(fontSize: 20.sp),
+                                  ),
+                                  20.h.ph,
+                                  Text(
+                                    "Meeting with client",
+                                    style:
+                                        fontRubikW400(appcolor: MyColors.white)
+                                            .copyWith(fontSize: 11.sp),
+                                  ),
+                                  8.h.ph,
+                                  Text(
+                                    "${widget.notifytask?.date.substring(11, 16)}PM",
+                                    style:
+                                        fontRubikW400(appcolor: MyColors.white)
+                                            .copyWith(fontSize: 11.sp),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () => setState(() {
+                                      widget.notifytask == null;
+                                    }),
+                                    child: SvgPicture.asset(
+                                      "assets/svg/close.svg",
+                                      width: 10.w,
+                                    ),
+                                  ),
+                                  SvgPicture.asset(
+                                    "assets/svg/bigbell.svg",
+                                    width: 60.w,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -81,7 +139,7 @@ class LoadedTaskWidget extends StatelessWidget {
                         ),
                         8.h.ph,
                         Text(
-                          "Today you have ${tasks.length} tasks",
+                          "Today you have ${widget.tasks.length} tasks",
                           style: fontRubikW400(appcolor: MyColors.white)
                               .copyWith(fontSize: 18.sp),
                         )
@@ -96,9 +154,9 @@ class LoadedTaskWidget extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             separatorBuilder: (context, index) => 14.h.ph,
             shrinkWrap: true,
-            itemCount: tasks.length,
+            itemCount: widget.tasks.length,
             itemBuilder: (context, index) {
-              final task = tasks[index];
+              final task = widget.tasks[index];
               return TaskWidget(
                 onTap: () {
                   !task.isNotify
