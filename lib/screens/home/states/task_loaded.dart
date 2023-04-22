@@ -55,7 +55,7 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
                         ),
                         8.h.ph,
                         Text(
-                          "Today you have ${widget.tasks.length} tasks",
+                          "You have ${widget.tasks.length} tasks",
                           style: fontRubikW400(appcolor: MyColors.white)
                               .copyWith(fontSize: 18.sp),
                         ),
