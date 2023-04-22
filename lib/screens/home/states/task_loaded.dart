@@ -25,7 +25,7 @@ class LoadedTaskWidget extends StatefulWidget {
 }
 
 class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
-  double height = 238;
+  double height = 106;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
                       image: AssetImage(MyImages.appbarNotify),
                       fit: BoxFit.cover),
                 ),
-                height: height.h,
+                height: height + 130.h,
                 width: double.infinity,
                 child: Stack(children: [
                   Positioned(
@@ -59,7 +59,7 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
                               .copyWith(fontSize: 18.sp),
                         ),
                         Container(
-                          height: 106.h,
+                          height: height.h,
                           width: 340.w,
                           padding: EdgeInsets.all(12.r),
                           decoration: BoxDecoration(
@@ -97,7 +97,7 @@ class _LoadedTaskWidgetState extends State<LoadedTaskWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () => setState(() {
-                                      widget.notifytask == null;
+                                      height = 0;
                                     }),
                                     child: SvgPicture.asset(
                                       "assets/svg/close.svg",
