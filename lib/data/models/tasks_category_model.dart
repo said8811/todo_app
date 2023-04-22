@@ -46,4 +46,12 @@ class TaskCategory {
         color: MyColors.study,
         colorInt: 0xFFF59BFF),
   ];
+  static Map mymap = {
+    "Personal": 0,
+    "Work": 1,
+    "Meeting": 2,
+    "Shopping": 3,
+    "Party": 4,
+    "Study": 5,
+  };
 }

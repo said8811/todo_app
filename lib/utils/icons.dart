@@ -15,4 +15,6 @@ class MyIcons {
   static String bell = "assets/svg/bell.svg";
   static String bell2 = "assets/svg/bell2.svg";
   static String done = "assets/svg/done.svg";
+  static String edit = "assets/svg/edit.svg";
+  static String trash = "assets/svg/trash.svg";
 }

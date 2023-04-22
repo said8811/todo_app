@@ -6,13 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/data/models/task_model.dart';
+import 'package:todo_app/data/models/tasks_category_model.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
 import 'package:todo_app/utils/my_text_style.dart';
 
 import '../../../bloc/task_bloc.dart';
+import '../../../service/local_notification.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/icons.dart';
 import '../../../utils/images.dart';
+import '../../tab_box/widgets/bottom_sheet.dart';
 
 class LoadedTaskWidget extends StatelessWidget {
   List<TaskModel> tasks;
@@ -20,7 +23,7 @@ class LoadedTaskWidget extends StatelessWidget {
     super.key,
     required this.tasks,
   });
-
+  int selectedCategory = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,28 +68,68 @@ class LoadedTaskWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final task = tasks[index];
               return Slidable(
-                startActionPane: ActionPane(
+                endActionPane: ActionPane(
+                  extentRatio: 0.28,
                   motion: const ScrollMotion(),
-
-                  // A pane can dismiss the Slidable.
-                  dismissible: DismissiblePane(onDismissed: () {}),
-
-                  // All actions are defined in the children parameter.
                   children: [
-                    // A SlidableAction can have an icon and/or a label.
-                    SlidableAction(
-                      onPressed: (context) {},
-                      backgroundColor: Color(0xFFFE4A49),
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
+                    InkWell(
+                      borderRadius: BorderRadius.circular(20.r),
+                      onTap: () {
+                        // selectedCategory =
+                        //     TaskCategory.mymap['${task.category}'];
+                        showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.elliptical(150.r, 50.r),
+                                  topRight: Radius.elliptical(150.r, 50.r))),
+                          context: context,
+                          builder: (context) {
+                            return StatefulBuilder(
+                              builder: (context, setState) => MyBottomSheet(
+                                selectedCategory: selectedCategory,
+                                onTap: (int index) {
+                                  setState(() {
+                                    selectedCategory = index;
+                                  });
+                                },
+                                initialText: task.task,
+                                update: true,
+                                taskday: task.date,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 35.h,
+                        width: 35.w,
+                        margin: EdgeInsets.only(left: 10.r),
+                        decoration: BoxDecoration(
+                            color: MyColors.C_5F87E7.withOpacity(0.36),
+                            borderRadius: BorderRadius.circular(20.r)),
+                        child: Center(
+                          child: SvgPicture.asset(MyIcons.edit),
+                        ),
+                      ),
                     ),
-                    SlidableAction(
-                      onPressed: (context) {},
-                      backgroundColor: Color(0xFF21B7CA),
-                      foregroundColor: Colors.white,
-                      icon: Icons.share,
-                      label: 'Share',
+                    InkWell(
+                      borderRadius: BorderRadius.circular(20.r),
+                      onTap: () {
+                        context
+                            .read<TaskBloc>()
+                            .add(DeleteTaskEvent(task: task));
+                      },
+                      child: Container(
+                        height: 35.h,
+                        width: 35.w,
+                        margin: EdgeInsets.only(left: 8.r),
+                        decoration: BoxDecoration(
+                            color: MyColors.C_FFCFCF.withOpacity(0.36),
+                            borderRadius: BorderRadius.circular(20.r)),
+                        child: Center(
+                          child: SvgPicture.asset(MyIcons.trash),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -152,6 +195,18 @@ class LoadedTaskWidget extends StatelessWidget {
                       const Spacer(),
                       InkWell(
                         onTap: () {
+                          print(task.date);
+                          print(DateTime.now());
+                          !task.isNotify
+                              ? LocalNotificationService
+                                  .localNotificationService
+                                  .scheduleNotification(
+                                      id: index,
+                                      task: task.task,
+                                      delayedTime: task.date)
+                              : LocalNotificationService
+                                  .localNotificationService
+                                  .cancelNotificationById(index);
                           context.read<TaskBloc>().add(UpDateTaskEvent(
                               task: task.copyWith(isNotify: !task.isNotify)));
                         },

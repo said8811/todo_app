@@ -12,7 +12,6 @@ import 'package:todo_app/service/sizedbox_extension.dart';
 import 'package:todo_app/utils/colors.dart';
 import 'package:todo_app/utils/icons.dart';
 import 'package:todo_app/utils/images.dart';
-import 'package:todo_app/utils/my_text_style.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         color: MyColors.background_color,
         child: BlocConsumer<TaskBloc, TaskState>(

@@ -14,8 +14,16 @@ import '../../../utils/my_text_style.dart';
 class MyBottomSheet extends StatefulWidget {
   int selectedCategory;
   Function onTap;
+  String initialText;
+  bool update;
+  String taskday;
   MyBottomSheet(
-      {super.key, required this.selectedCategory, required this.onTap});
+      {super.key,
+      required this.selectedCategory,
+      required this.onTap,
+      this.initialText = "",
+      this.update = false,
+      this.taskday = ''});
 
   @override
   State<MyBottomSheet> createState() => _MyBottomSheetState();
@@ -69,17 +77,16 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
             children: [
               Center(
                 child: Text(
-                  "Add new task",
+                  widget.update ? "Update task" : "Add new task",
                   style: fontRubikW500(appcolor: MyColors.C_404040)
                       .copyWith(fontSize: 13.sp),
                 ),
               ),
-              TextField(
-                onSubmitted: (value) {
+              TextFormField(
+                onChanged: (value) {
                   taskName = value;
-                  print("INOUT " + value);
-                  print("RESULT" + taskName);
                 },
+                initialValue: widget.initialText,
                 style: fontRubikW400(appcolor: MyColors.C_373737),
                 cursorHeight: 28.h,
                 cursorColor: MyColors.black,
@@ -149,38 +156,40 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
               ),
               28.h.ph,
               Row(
-                children: [
-                  Text(
-                    "Choose Date",
-                    style: fontRubikW400(appcolor: MyColors.black)
-                        .copyWith(fontSize: 13.sp),
-                  ),
-                  0.w.pw,
-                  IconButton(
-                      padding: EdgeInsets.all(0.r),
-                      onPressed: () async {
-                        print(taskDay);
-                        taskDay = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2300),
-                        );
-                        // ignore: use_build_context_synchronously
-                        taskTime = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );
-                        taskDay = DateTime(
-                          taskDay?.year ?? 0000,
-                          taskDay?.month ?? 00,
-                          taskDay?.day ?? 00,
-                          taskTime?.hour ?? 00,
-                          taskTime?.minute ?? 00,
-                        );
-                      },
-                      icon: SvgPicture.asset(MyIcons.downward))
-                ],
+                children: widget.update
+                    ? []
+                    : [
+                        Text(
+                          "Choose Date",
+                          style: fontRubikW400(appcolor: MyColors.black)
+                              .copyWith(fontSize: 13.sp),
+                        ),
+                        0.w.pw,
+                        IconButton(
+                            padding: EdgeInsets.all(0.r),
+                            onPressed: () async {
+                              print(taskDay);
+                              taskDay = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2300),
+                              );
+                              // ignore: use_build_context_synchronously
+                              taskTime = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                              );
+                              taskDay = DateTime(
+                                taskDay?.year ?? 0000,
+                                taskDay?.month ?? 00,
+                                taskDay?.day ?? 00,
+                                taskTime?.hour ?? 00,
+                                taskTime?.minute ?? 00,
+                              );
+                            },
+                            icon: SvgPicture.asset(MyIcons.downward))
+                      ],
               ),
               const Spacer(),
               Padding(
@@ -189,16 +198,22 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                   onTap: () {
                     final category =
                         TaskCategory.categories[widget.selectedCategory];
-                    context.read<TaskBloc>().add(AddTaskEvent(
-                            task: TaskModel(
-                          task: taskName,
-                          category: category.name,
-                          color: category.colorInt,
-                          isDone: false,
-                          isNotify: false,
-                          date: taskDay.toString(),
-                          count: 1,
-                        )));
+                    TaskModel task = TaskModel(
+                      task: taskName,
+                      category: category.name,
+                      color: category.colorInt,
+                      isDone: false,
+                      isNotify: false,
+                      date: widget.update ? widget.taskday : taskDay.toString(),
+                      count: 1,
+                    );
+                    widget.update
+                        ? context
+                            .read<TaskBloc>()
+                            .add(UpDateTaskEvent(task: task))
+                        : context
+                            .read<TaskBloc>()
+                            .add(AddTaskEvent(task: task));
                     Navigator.pop(context);
                   },
                   child: Container(
@@ -216,7 +231,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                             colors: [MyColors.primary_1, MyColors.primary_2])),
                     child: Center(
                       child: Text(
-                        "Add task",
+                        widget.update ? "Update task" : "Add task",
                         style: fontRubikW500(appcolor: MyColors.white),
                       ),
                     ),
