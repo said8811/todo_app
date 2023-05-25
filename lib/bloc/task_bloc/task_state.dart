@@ -11,21 +11,18 @@ class TaskInitial extends TaskState {
 
 class TasksLoadingState extends TaskState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class TasksEmptyState extends TaskState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class TasksLoadedState extends TaskState {
   final List<TaskModel> tasks;
   final TaskModel? notifyTask;
-  TasksLoadedState({required this.tasks, this.notifyTask});
+  const TasksLoadedState({required this.tasks, this.notifyTask});
   @override
-  // TODO: implement props
   List<Object?> get props => [tasks];
 }

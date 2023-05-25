@@ -1,8 +1,8 @@
 class MyIcons {
-  static String selected_task = "assets/svg/selected_task.svg";
-  static String unselected_task = "assets/svg/unselected_task.svg";
-  static String selected_home = "assets/svg/selected_home.svg";
-  static String unselected_home = "assets/svg/unselected_home.svg";
+  static String selectedTask = "assets/svg/selected_task.svg";
+  static String unselectedTask = "assets/svg/unselected_task.svg";
+  static String selectedHome = "assets/svg/selected_home.svg";
+  static String unselectedHome = "assets/svg/unselected_home.svg";
   static String plus = "assets/svg/plus.svg";
   static String close = "assets/svg/close.svg";
   static String person = "assets/svg/user.svg";

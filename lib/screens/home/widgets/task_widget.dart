@@ -13,11 +13,18 @@ import '../../../utils/icons.dart';
 import '../../../utils/my_text_style.dart';
 import '../../tab_box/widgets/bottom_sheet.dart';
 
-class TaskWidget extends StatelessWidget {
-  VoidCallback onTap;
-  TaskModel task;
-  TaskWidget({super.key, required this.task, required this.onTap});
+class TaskWidget extends StatefulWidget {
+  final VoidCallback onTap;
+  final TaskModel task;
+  const TaskWidget({super.key, required this.task, required this.onTap});
+
+  @override
+  State<TaskWidget> createState() => _TaskWidgetState();
+}
+
+class _TaskWidgetState extends State<TaskWidget> {
   int selectedCategory = 0;
+
   @override
   Widget build(BuildContext context) {
     return Slidable(
@@ -28,7 +35,7 @@ class TaskWidget extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(20.r),
             onTap: () {
-              selectedCategory = TaskCategory.mymap['${task.category}'];
+              selectedCategory = TaskCategory.mymap[widget.task.category];
               showModalBottomSheet(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -48,9 +55,9 @@ class TaskWidget extends StatelessWidget {
                             selectedCategory = index;
                           });
                         },
-                        initialText: task.task,
+                        initialText: widget.task.task,
                         update: true,
-                        taskday: task.date,
+                        taskday: widget.task.date,
                       ),
                     ),
                   );
@@ -74,7 +81,7 @@ class TaskWidget extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(20.r),
             onTap: () {
-              context.read<TaskBloc>().add(DeleteTaskEvent(task: task));
+              context.read<TaskBloc>().add(DeleteTaskEvent(task: widget.task));
             },
             child: Container(
               height: 35.h,
@@ -98,7 +105,7 @@ class TaskWidget extends StatelessWidget {
             color: MyColors.white,
             gradient: LinearGradient(
                 stops: const [0.02, 0.02],
-                colors: [Color(task.color), MyColors.white]),
+                colors: [Color(widget.task.color), MyColors.white]),
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
@@ -113,8 +120,8 @@ class TaskWidget extends StatelessWidget {
             InkWell(
               borderRadius: BorderRadius.circular(9.r),
               onTap: () {
-                context.read<TaskBloc>().add(
-                    UpDateTaskEvent(task: task.copyWith(isDone: !task.isDone)));
+                context.read<TaskBloc>().add(UpDateTaskEvent(
+                    task: widget.task.copyWith(isDone: !widget.task.isDone)));
               },
               child: Container(
                 width: 18.w,
@@ -122,35 +129,40 @@ class TaskWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(9.r),
                     border: Border.all(
-                        color: task.isDone ? Colors.white : MyColors.C_DADADA)),
-                child: task.isDone
+                        color: widget.task.isDone
+                            ? Colors.white
+                            : MyColors.C_DADADA)),
+                child: widget.task.isDone
                     ? SvgPicture.asset(MyIcons.done)
                     : const SizedBox(),
               ),
             ),
             8.w.pw,
             Text(
-              "${task.date.substring(11, 16)} AM",
+              "${widget.task.date.substring(11, 16)} AM",
               style: fontRubikW400(appcolor: MyColors.C_C6C6C8)
                   .copyWith(fontSize: 11.sp),
             ),
             8.w.pw,
             Text(
-              task.task.length > 27 ? task.task.substring(0, 27) : task.task,
+              widget.task.task.length > 27
+                  ? widget.task.task.substring(0, 27)
+                  : widget.task.task,
               style: fontRubikW500(
-                      appcolor:
-                          task.isDone ? MyColors.C_D9D9D9 : MyColors.C_554E8F)
+                      appcolor: widget.task.isDone
+                          ? MyColors.C_D9D9D9
+                          : MyColors.C_554E8F)
                   .copyWith(
                       fontSize: 14.sp,
-                      decoration: task.isDone
+                      decoration: widget.task.isDone
                           ? TextDecoration.underline
                           : TextDecoration.none),
             ),
             const Spacer(),
             InkWell(
-              onTap: onTap,
+              onTap: widget.onTap,
               child: SvgPicture.asset(
-                  task.isNotify ? MyIcons.bell2 : MyIcons.bell),
+                  widget.task.isNotify ? MyIcons.bell2 : MyIcons.bell),
             ),
           ],
         ),

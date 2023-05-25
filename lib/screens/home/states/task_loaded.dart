@@ -14,9 +14,9 @@ import '../../../utils/images.dart';
 import '../widgets/task_widget.dart';
 
 class LoadedTaskWidget extends StatefulWidget {
-  List<TaskModel> tasks;
-  TaskModel? notifytask;
-  LoadedTaskWidget({
+  final List<TaskModel> tasks;
+  final TaskModel? notifytask;
+  const LoadedTaskWidget({
     super.key,
     required this.tasks,
     required this.notifytask,

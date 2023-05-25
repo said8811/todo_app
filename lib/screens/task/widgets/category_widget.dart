@@ -8,8 +8,8 @@ import '../../../utils/colors.dart';
 import '../../../utils/my_text_style.dart';
 
 class CategoryWidget extends StatelessWidget {
-  TaskCategory category;
-   CategoryWidget({super.key, required this.category});
+  final TaskCategory category;
+  const CategoryWidget({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {

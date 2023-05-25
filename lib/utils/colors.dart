@@ -9,7 +9,7 @@ class MyColors {
   static Color primary_2 = const Color(0xFF3867D5);
   static Color C_5DE61A = const Color(0xFF5DE61A);
   static Color C_8B87B3 = const Color(0xFF8B87B3);
-  static Color C_F9FCFF = Color(0xFFF9FCFF);
+  static Color C_F9FCFF = const Color(0xFFF9FCFF);
   static Color C_39A801 = const Color(0xFF39A801);
   static Color C_373737 = const Color(0xFF373737);
   static Color C_DADADA = const Color(0xFFDADADA);
@@ -31,5 +31,5 @@ class MyColors {
   static Color meeting = const Color(0xFFD10263);
   static Color study = const Color(0xFFF59BFF);
   static Color shopping = const Color(0xFFF29130);
-  static Color party = const Color(0xFF9BFFF85);
+  static Color party = const Color(0xff9bfff8);
 }

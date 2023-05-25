@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,12 +11,12 @@ import '../../../utils/icons.dart';
 import '../../../utils/my_text_style.dart';
 
 class MyBottomSheet extends StatefulWidget {
-  int selectedCategory;
-  Function onTap;
-  String initialText;
-  bool update;
-  String taskday;
-  MyBottomSheet(
+  final int selectedCategory;
+  final Function onTap;
+  final String initialText;
+  final bool update;
+  final String taskday;
+  const MyBottomSheet(
       {super.key,
       required this.selectedCategory,
       required this.onTap,
@@ -168,7 +167,6 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
                         IconButton(
                             padding: EdgeInsets.all(0.r),
                             onPressed: () async {
-                              print(taskDay);
                               taskDay = await showDatePicker(
                                 context: context,
                                 initialDate: DateTime.now(),

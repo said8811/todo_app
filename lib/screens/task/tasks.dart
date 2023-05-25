@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/screens/task/widgets/category_widget.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
 import '../../data/models/tasks_category_model.dart';

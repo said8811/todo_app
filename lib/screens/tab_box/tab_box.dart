@@ -21,8 +21,8 @@ class _TabBoxState extends State<TabBox> {
 
   @override
   void initState() {
-    screens.add(HomePage());
-    screens.add(TasksPage());
+    screens.add(const HomePage());
+    screens.add(const TasksPage());
     super.initState();
   }
 
@@ -44,14 +44,14 @@ class _TabBoxState extends State<TabBox> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 currentScreen == 0
-                    ? MyIcons.selected_home
-                    : MyIcons.unselected_home,
+                    ? MyIcons.selectedHome
+                    : MyIcons.unselectedHome,
               ),
               label: ""),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(currentScreen == 1
-                  ? MyIcons.selected_task
-                  : MyIcons.unselected_task),
+                  ? MyIcons.selectedTask
+                  : MyIcons.unselectedTask),
               label: "")
         ],
       ),

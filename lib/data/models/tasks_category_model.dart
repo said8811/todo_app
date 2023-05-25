@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:hive/hive.dart';
 import 'package:todo_app/utils/colors.dart';
 import 'package:todo_app/utils/icons.dart';
 

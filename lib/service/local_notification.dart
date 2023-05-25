@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:timezone/data/latest_all.dart' as tz;
+// ignore: depend_on_referenced_packages
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:todo_app/utils/toast.dart';
@@ -43,9 +45,7 @@ class LocalNotificationService {
         //Android
         if (notificationResponse.payload != null) {
           debugPrint('PAYLOAD RESULT------> ${notificationResponse.payload}');
-        } else {
-          print("PAYLOAD RESULT NULL");
-        }
+        } else {}
       },
     );
 
@@ -57,9 +57,7 @@ class LocalNotificationService {
   }
 
   @pragma('vm:entry-point')
-  void notificationTapBackground(NotificationResponse notificationResponse) {
-    print("TAPPED FROM BACKGROUND");
-  }
+  void notificationTapBackground(NotificationResponse notificationResponse) {}
 
 // Android
 
@@ -69,9 +67,7 @@ class LocalNotificationService {
     String? title,
     String? body,
     String? payload,
-  ) async {
-    print(payload);
-  }
+  ) async {}
 
   //channel
   AndroidNotificationChannel androidNotificationChannel =
@@ -112,7 +108,6 @@ class LocalNotificationService {
     final date2 = DateTime.now();
     final seconds = birthday.difference(date2).inSeconds;
 
-    print(seconds);
     // if time is in the future notification will be set
     if (seconds > 0) {
       await flutterLocalNotificationsPlugin.zonedSchedule(

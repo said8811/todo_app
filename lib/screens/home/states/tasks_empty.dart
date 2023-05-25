@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/service/sizedbox_extension.dart';
@@ -48,7 +46,7 @@ class EmptyTaskList extends StatelessWidget {
         ),
         150.h.ph,
         Center(
-          child: SvgPicture.asset(MyImages.empty_tasks),
+          child: SvgPicture.asset(MyImages.emptyTasks),
         ),
         70.h.ph,
         Text(
